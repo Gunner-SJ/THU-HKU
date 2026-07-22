@@ -1,0 +1,9 @@
+bicycle_parameters:
+  rear_contact_to_com: 0.117
+  wheelbase: 0.28223
+  trail: 0.0140
+  com_height: 0.105
+  mass: 2.218
+  roll_inertia: 0.03261
+  steering_axis_angle: 0.179770
+  gravity: 9.81

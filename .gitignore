@@ -1,0 +1,45 @@
+# colcon
+build/
+install/
+log/
+**/COLCON_IGNORE
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+*.egg
+dist/
+.Python
+
+# Runtime logs / plots / bags (large, machine-local)
+bike_response_logs/
+bike_logs/
+**/bike_mit_log_*.csv
+**/bike_mit_log_*.png
+rosbag*/
+rosbag_output/
+*.bag
+*.mcap
+generated_backups/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+
+# Editor / OS
+.vscode/
+.idea/
+.cursor/
+*.swp
+*~
+.DS_Store
+
+# Secrets / local env
+.env
+*.pem
+id_rsa*
+id_ed25519*

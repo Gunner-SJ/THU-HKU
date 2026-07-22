@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>bike_balance_ros2</name>
+  <version>1.0.0</version>
+  <description>50Hz bicycle balance controller using LQR/pole-placement with gain scheduling. Adapted from MuJoCo simulation to real GIM3510-8 motors.</description>
+  <maintainer email="steven@bike.local">Steven</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>python3-numpy</depend>
+  <depend>python3-scipy</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
