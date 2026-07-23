@@ -44,7 +44,7 @@ class SbusReceiverNode(Node):
 
     # ----------------------------------------------------------------------
     def _connect(self):
-        """Scan /dev/ttyUSB* for a device that speaks SBUS."""
+        """Scan /dev/sbus then /dev/ttyUSB* for a device that speaks SBUS."""
         with self.lock:
             if self.ser is not None:
                 try:
@@ -54,33 +54,28 @@ class SbusReceiverNode(Node):
                 self.ser = None
             self.connected = False
 
-            candidate_ports = sorted(glob.glob('/dev/ttyUSB*'))
+            candidate_ports = (['/dev/sbus'] + sorted(glob.glob('/dev/ttyUSB*'))
+                               if not glob.glob('/dev/sbus')
+                               else ['/dev/sbus'])
             for port in candidate_ports:
                 try:
                     self.get_logger().info(f"Trying SBUS on {port} ...")
-                    # exclusive=True: stop IMU reconnect from stealing this port mid-run
-                    s = serial.Serial(
-                        port, self.BAUDRATE, timeout=0.02, exclusive=True
-                    )
-                    # Wait a bit and try to read a valid SBUS frame
+                    s = serial.Serial(port, self.BAUDRATE, timeout=0.02)
                     s.reset_input_buffer()
-                    time.sleep(0.05)
-                    # read up to 100 bytes and search for a valid frame
-                    raw = s.read(100)
-                    if len(raw) < self.FRAME_LEN:
+                    time.sleep(0.08)  # slightly longer settle
+                    raw = s.read(200)  # more data for stronger validation
+                    if len(raw) < self.FRAME_LEN * 2:  # need at least 2 frames
                         s.close()
                         continue
-                    # look for start byte and check frame validity
-                    found = False
+                    # Require multiple valid SBUS frames (not just one lucky byte pair)
+                    valid_frames = 0
                     for i in range(len(raw) - self.FRAME_LEN + 1):
-                        if raw[i] == self.START_BYTE and raw[i+24] in self.END_BYTES:
-                            # rudimentary check – we trust it
-                            found = True
-                            break
-                    if not found:
+                        if raw[i] == self.START_BYTE and raw[i + 24] in self.END_BYTES:
+                            valid_frames += 1
+                            i += self.FRAME_LEN  # skip past this frame
+                    if valid_frames < 2:  # need ≥2 frames to avoid IMU false-positive
                         s.close()
                         continue
-                    # valid SBUS stream found
                     self.ser = s
                     self.buffer = bytearray()
                     self.connected = True
