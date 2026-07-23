@@ -106,7 +106,7 @@ def generate_launch_description():
             parameters=[{
                 'control_method': 'place_distinct_poles',
                 # Max-aggression recovery test (full hardware steer authority).
-                'poles_ctr': [-12.0, -24.0, -40.0],
+                'poles_ctr': [-8.0, -18.0, -30.0],
                 'pole_wc': -5.0,
                 'control_dt': 0.02,
                 'log_dir': LOG_DIR,
@@ -114,7 +114,7 @@ def generate_launch_description():
                 'target_speed': 1.5,
                 'acceleration_time': 1.0,
                 'min_scheduling_speed': 0.5,
-                'initial_steer_deg': -10.0,
+                'initial_steer_deg': -5.0,
                 'drive_sign': -1.0,
                 'max_steer_velocity': 12.0,
                 # Soft cap OFF. Unwind OFF for recovery test.
@@ -127,7 +127,7 @@ def generate_launch_description():
                 'lqr_q_roll': 120.0,
                 'lqr_q_roll_rate': 12.0,
                 'lqr_r_steer_rate': 25.0,
-                'steer_center_deg': -6.0,
+                'steer_center_deg': -3.0,
                 'steer_max_delta_deg': 24.50,
                 'steer_max_left_deg': 24.50,
                 'steer_max_right_deg': 30.00,

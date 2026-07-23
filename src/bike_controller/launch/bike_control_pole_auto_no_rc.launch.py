@@ -99,13 +99,13 @@ def generate_launch_description():
             parameters=[{
                 'control_method': 'place_distinct_poles',
                 # Max-aggression recovery test (full hardware steer authority).
-                'poles_ctr': [-10.0, -20.0, -34.0],
+                'poles_ctr': [-8.0, -18.0, -30 .0],
                 'pole_wc': -5.0,
                 'control_dt': 0.02,
                 'log_dir': LOG_DIR,
                 'wheel_radius': 0.0725,
                 'target_speed': 1.5,
-                'acceleration_time': 1.0,
+                'acceleration_time': 3.0,
                 'min_scheduling_speed': 0.5,
                 'initial_steer_deg': -10.0,
                 'drive_sign': -1.0,
