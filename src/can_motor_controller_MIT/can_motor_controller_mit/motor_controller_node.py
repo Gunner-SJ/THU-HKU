@@ -34,7 +34,7 @@ class MotorControllerMITNode(Node):
         self.declare_parameter("steer_mit_pos_max_rad", 95.5)
         self.declare_parameter("steer_mit_vel_max_rad_s", 45.0)
         self.declare_parameter("steer_mit_torque_max_nm", 18.0)
-        self.declare_parameter("steer_mit_kp", 5.0)
+        self.declare_parameter("steer_mit_kp", 7.0)
         self.declare_parameter("steer_mit_kd", 0.2)
         self.declare_parameter("steer_mit_velocity_ff_rad_s", 0.0)
         self.declare_parameter("steer_mit_torque_ff_nm", 0.0)
